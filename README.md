@@ -100,8 +100,8 @@ All four algorithms share a unified interface defined in `algorithms.py` via the
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd ai-search-visualizer
+git clone https://github.com/Lakshya-101/VITyarthi-Project-CSA-2001-AI-ML-.git
+cd aisearchapp
 
 # Install dependencies
 pip install -r requirements.txt
