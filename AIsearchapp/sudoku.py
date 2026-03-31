@@ -5,13 +5,10 @@ import time
 
 
 def is_valid_sudoku(board, row, col, num):
-    # Check row
     if num in board[row]:
         return False
-    # Check column
     if num in [board[r][col] for r in range(9)]:
         return False
-    # Check 3x3 box
     br, bc = (row // 3) * 3, (col // 3) * 3
     for r in range(br, br + 3):
         for c in range(bc, bc + 3):
@@ -93,7 +90,6 @@ def solve_sudoku_bfs(board_input):
         result.nodes_explored = visited_count
 
         if visited_count > 50000:
-            # BFS is too slow for sudoku, cap it
             result.time_taken = time.time() - start_time
             result.success = False
             return result
@@ -121,18 +117,16 @@ def sudoku_heuristic(board):
     """Count remaining empty cells (fewer = closer to goal)."""
     empty_count = sum(1 for r in range(9) for c in range(9) if board[r][c] == 0)
     
-    # Also penalize cells with fewer candidates (more constrained)
     if empty_count == 0:
         return 0
     
-    # Find MRV (Minimum Remaining Values) heuristic
     min_candidates = 10
     for r in range(9):
         for c in range(9):
             if board[r][c] == 0:
                 cands = get_candidates(board, r, c)
                 if len(cands) == 0:
-                    return float('inf')  # Dead end
+                    return float('inf')  
                 min_candidates = min(min_candidates, len(cands))
     
     return empty_count + (min_candidates - 1)
@@ -170,7 +164,6 @@ def solve_sudoku_greedy(board_input):
         if not candidates:
             continue
 
-        # MRV: pick the cell with fewest candidates
         best_cell = (row, col)
         best_cands = candidates
         min_len = len(candidates)
@@ -204,7 +197,6 @@ def solve_sudoku_astar(board_input):
     
     initial_empty = sum(1 for r in range(9) for c in range(9) if board[r][c] == 0)
     counter = [0]
-    # g = filled cells, h = heuristic
     heap = [(sudoku_heuristic(board), counter[0], 0, board)]
     visited_count = 0
 
@@ -226,7 +218,6 @@ def solve_sudoku_astar(board_input):
             result.solution_depth = initial_empty
             break
 
-        # MRV heuristic: pick cell with fewest options
         best_cell = None
         best_cands = None
         min_len = 10
@@ -259,7 +250,6 @@ def solve_sudoku_astar(board_input):
 
 def generate_sudoku(difficulty="Medium"):
     """Generate a valid Sudoku puzzle."""
-    # Start with a solved board
     board = [[0]*9 for _ in range(9)]
     
     def fill_board(b):
@@ -280,7 +270,6 @@ def generate_sudoku(difficulty="Medium"):
     fill_board(board)
     solved = copy.deepcopy(board)
 
-    # Remove cells based on difficulty
     remove_counts = {"Easy": 30, "Medium": 45, "Hard": 55}
     to_remove = remove_counts.get(difficulty, 45)
 
@@ -292,7 +281,6 @@ def generate_sudoku(difficulty="Medium"):
             break
         val = board[r][c]
         board[r][c] = 0
-        # Check still uniquely solvable (simplified check)
         removed += 1
 
     return board, solved
