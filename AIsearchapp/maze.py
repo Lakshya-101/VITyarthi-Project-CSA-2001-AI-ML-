@@ -7,7 +7,6 @@ def generate_maze(rows=15, cols=15, seed=None):
     if seed is not None:
         random.seed(seed)
 
-    # Start with all walls
     maze = [[1] * cols for _ in range(rows)]
 
     def carve(r, c):
@@ -22,11 +21,9 @@ def generate_maze(rows=15, cols=15, seed=None):
 
     carve(1, 1)
 
-    # Ensure start and end are open
     maze[1][1] = 0
     maze[rows-2][cols-2] = 0
 
-    # Open a path to end if needed
     maze[rows-2][cols-3] = 0
     maze[rows-3][cols-2] = 0
 
