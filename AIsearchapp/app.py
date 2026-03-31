@@ -16,7 +16,7 @@ from word_ladder import generate_random_word_pair, solve_word_ladder, WORD_SET, 
 from maze import generate_maze, solve_maze
 from sudoku import generate_sudoku, solve_sudoku
 
-# ─── Page Config ────────────────────────────────────────────────────────────────
+#Page Config 
 st.set_page_config(
     page_title="AI Search Visualizer",
     page_icon="🧠",
@@ -24,7 +24,7 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# ─── Custom CSS ─────────────────────────────────────────────────────────────────
+# Developed Custom CSS
 st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
@@ -128,7 +128,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ─── Helpers ────────────────────────────────────────────────────────────────────
+#Helpers
 ALGO_COLORS = {
     "DFS":              "#ef4444",
     "BFS":              "#3b82f6",
@@ -224,9 +224,7 @@ def show_winner(results):
         </div>""", unsafe_allow_html=True)
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # 8-PUZZLE
-# ═══════════════════════════════════════════════════════════════════════════════
 def render_8puzzle_grid(state, title="", highlight_path=None):
     goal = GOAL_STATE
     fig, ax = plt.subplots(figsize=(3.2, 3.2))
@@ -353,9 +351,8 @@ def page_8puzzle():
                         st.info(f"… {len(path)-8} more steps (showing first 8)")
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # WORD LADDER
-# ═══════════════════════════════════════════════════════════════════════════════
+
 def page_word_ladder():
     st.markdown('<div class="section-header">🔤 Word Ladder Problem</div>', unsafe_allow_html=True)
     st.markdown("""
@@ -482,9 +479,7 @@ def page_word_ladder():
                 st.markdown(html, unsafe_allow_html=True)
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # MAZE
-# ═══════════════════════════════════════════════════════════════════════════════
 def render_maze_fig(maze, path=None, algo_name="", explored_cells=None):
     rows, cols = len(maze), len(maze[0])
     fig, ax = plt.subplots(figsize=(7, 7))
@@ -639,9 +634,8 @@ def page_maze():
                 show_winner(results)
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
+
 # SUDOKU
-# ═══════════════════════════════════════════════════════════════════════════════
 def render_sudoku(board, original=None, title=""):
     fig, ax = plt.subplots(figsize=(5, 5))
     fig.patch.set_facecolor('#0f172a')
@@ -777,9 +771,7 @@ def page_sudoku():
             show_winner(results)
 
 
-# ═══════════════════════════════════════════════════════════════════════════════
 # SIDEBAR & MAIN
-# ═══════════════════════════════════════════════════════════════════════════════
 def sidebar():
     with st.sidebar:
         st.markdown("""
